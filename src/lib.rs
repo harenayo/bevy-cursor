@@ -20,7 +20,7 @@ use bevy::{
         Parent,
     },
     log::error,
-    math::f32::Quat,
+    math::f32::Vec3,
     render::camera::{
         Camera,
         RenderTarget,
@@ -97,17 +97,11 @@ pub fn update_cursor_rays(
                     .viewport_to_world(camera_global_transform, cursor_position)
                     .ok_or(Error::CameraRay)?;
 
-                let forward = GlobalTransform::IDENTITY.forward();
-
                 *cursor_ray_transform = GlobalTransform::IDENTITY
-                    .mul_transform(Transform {
-                        translation: camera_ray.origin,
-                        rotation: Quat::from_scaled_axis(
-                            forward.angle_between(*camera_ray.direction)
-                                * forward.cross(*camera_ray.direction).normalize_or_zero(),
-                        ),
-                        ..Transform::IDENTITY
-                    })
+                    .mul_transform(
+                        Transform::from_translation(camera_ray.origin)
+                            .looking_to(*camera_ray.direction, Vec3::NAN),
+                    )
                     .reparented_to(match cursor_ray_parent {
                         Option::Some(parent) => global_transforms
                             .get(parent.get())
