@@ -102,9 +102,9 @@ pub fn update_cursor_rays(
                 *cursor_ray_transform = GlobalTransform::IDENTITY
                     .mul_transform(Transform {
                         translation: camera_ray.origin,
-                        rotation: Quat::from_axis_angle(
-                            forward.cross(*camera_ray.direction).normalize(),
-                            forward.angle_between(*camera_ray.direction),
+                        rotation: Quat::from_scaled_axis(
+                            forward.angle_between(*camera_ray.direction)
+                                * forward.cross(*camera_ray.direction).normalize_or_zero(),
                         ),
                         ..Transform::IDENTITY
                     })
