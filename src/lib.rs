@@ -1,4 +1,10 @@
 //! A simple crate for cursor rays in [`bevy`].
+//!
+//! # Features
+//!
+//! feature | description
+//! - | -
+//! `dev` | Enable other features required by the examples.
 
 use bevy::{
     app::{
