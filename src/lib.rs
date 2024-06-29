@@ -41,7 +41,15 @@ pub struct CursorRay {
     pub target: Entity,
 }
 
-#[derive(Clone, Copy, PartialEq, Debug, Bundle)]
+impl Default for CursorRay {
+    fn default() -> Self {
+        Self {
+            target: Entity::PLACEHOLDER,
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug, Bundle)]
 pub struct CursorRayBundle {
     pub cursor_ray: CursorRay,
     pub transform: Transform,
