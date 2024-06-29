@@ -1,6 +1,6 @@
 [package]
 name = "bevy-cursor"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["Harenayo"]
 edition = "2021"
 description = "A simple crate for cursor rays in Bevy"
