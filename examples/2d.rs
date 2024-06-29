@@ -7,7 +7,10 @@ use {
         },
         core_pipeline::core_2d::Camera2dBundle,
         ecs::{
-            query::With,
+            query::{
+                With,
+                Without,
+            },
             system::{
                 Commands,
                 Query,
@@ -19,10 +22,7 @@ use {
             Sprite,
             SpriteBundle,
         },
-        transform::components::{
-            GlobalTransform,
-            Transform,
-        },
+        transform::components::Transform,
         DefaultPlugins,
     },
     bevy_cursor::{
@@ -61,14 +61,11 @@ fn startup(mut commands: Commands) {
 }
 
 fn update(
-    cursor_rays: Query<&GlobalTransform, With<CursorRay>>,
-    mut sprites: Query<&mut Transform, With<Sprite>>,
+    cursor_rays: Query<&Transform, (With<CursorRay>, Without<Sprite>)>,
+    mut sprites: Query<&mut Transform, (With<Sprite>, Without<CursorRay>)>,
 ) {
-    let cursor_ray = cursor_rays.single();
-    let mut sprite = sprites.single_mut();
-
-    sprite.translation = Vec3 {
+    sprites.single_mut().translation = Vec3 {
         z: 0.0,
-        ..cursor_ray.translation()
+        ..cursor_rays.single().translation
     };
 }
