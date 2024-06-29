@@ -1,7 +1,12 @@
 [package]
 name = "bevy-cursor"
 version = "0.0.0"
+authors = ["Harenayo"]
 edition = "2021"
+description = "A simple crate for cursor rays in Bevy"
+readme = "README.md"
+repository = "https://github.com/harenayo/bevy-cursor"
+license = "MIT"
 
 [dependencies.bevy]
 version = "0.13.2"
