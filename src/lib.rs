@@ -1,3 +1,5 @@
+//! A simple crate for cursor rays in Bevy.
+
 use bevy::{
     app::{
         App,
@@ -36,8 +38,12 @@ use bevy::{
     },
 };
 
+/// A cursor ray component.
+/// An entity with this component should have [`Transform`].
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Component)]
 pub struct CursorRay {
+    /// A target [`Camera`].
+    /// [`Camera::target`] must be [`RenderTarget::Window`].
     pub target: Entity,
 }
 
@@ -49,6 +55,7 @@ impl Default for CursorRay {
     }
 }
 
+/// A bundle for [`CursorRay`].
 #[derive(Clone, Copy, PartialEq, Default, Debug, Bundle)]
 pub struct CursorRayBundle {
     pub cursor_ray: CursorRay,
@@ -56,6 +63,7 @@ pub struct CursorRayBundle {
     pub global_transform: GlobalTransform,
 }
 
+/// Update [`Transform`] of entities with [`CursorRay`].
 pub fn update_cursor_rays(
     mut cursor_rays: Query<(&CursorRay, &mut Transform, Option<&Parent>)>,
     global_transforms: Query<&GlobalTransform, With<Children>>,
@@ -125,6 +133,8 @@ pub fn update_cursor_rays(
         });
 }
 
+/// A plugin for [`CursorRay`].
+/// This plugin just add [`update_cursor_rays`].
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default, Debug)]
 pub struct CursorRayPlugin;
 
