@@ -3,9 +3,14 @@ name = "bevy-cursor"
 version = "0.0.0"
 edition = "2021"
 
+[features]
+dev = ["bevy/default"]
+
 [dependencies.bevy]
 version = "0.13.2"
 default-features = false
-features = [
-    "bevy_render"
-]
+features = ["bevy_render"]
+
+[[example]]
+name = "2d"
+required-features = ["bevy/default"]
