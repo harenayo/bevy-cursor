@@ -1,4 +1,4 @@
-//! A simple crate for cursor rays in Bevy.
+//! A simple crate for cursor rays in [`bevy`].
 
 use bevy::{
     app::{
